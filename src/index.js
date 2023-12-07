@@ -56,30 +56,50 @@ function App() {
       <Footer />
     </div>
   );
+
+  function Menu() {
+    return (
+      <main className="menu">
+        <h2>Our Menu</h2>
+        <Pizza
+          name="Pizza Spinaci"
+          ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+          photoName="pizzas/spinaci.jpg"
+          price={599}
+        />
+
+        <Pizza
+          name="Pizza Funghi"
+          ingredients="Tomato, mozarella, mushrooms, and onion"
+          photoName="pizzas/funghi.jpg"
+          price={450}
+        />
+      </main>
+    );
+  }
 }
 
-function Pizza() {
+function Pizza(props) {
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg"></img>
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
+    <div className="pizza">
+      <img src={props.photoName}></img>
+      <div>
+        <h2>{props.name}</h2>
+        <p>{props.ingredients}</p>
+        <span>{props.price + 3}</span>
+      </div>
     </div>
   );
 }
 
-function Menu() {
-  return (
-    <div>
-      <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-    </div>
-  );
-}
 function Header() {
-  return <h1 style={{ color: "red" }}>Fast React Pizza Co.</h1>;
+  return (
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>;
+    </header>
+  );
 }
+
 function Footer() {
   const hour = new Date().getHours();
   const openHour = 12;
@@ -88,7 +108,9 @@ function Footer() {
   // if (hour >= openHour && hour <= closeHour) alert("We are open right now!");
   // else alert("We are closed fuck off!");
   return (
-    <footer>{new Date().toLocaleTimeString()}. We are currently open!</footer>
+    <footer className="footer">
+      {new Date().toLocaleTimeString()}. We are currently open!
+    </footer>
   );
 }
 
