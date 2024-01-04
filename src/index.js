@@ -58,43 +58,45 @@ function App() {
   );
 
   function Menu() {
+    // const pizzas = [];
+    const pizzas = pizzaData;
+    const numPizzas = pizzas.length;
     return (
       <main className="menu">
         <h2>Our Menu</h2>
-        <div>
-          {pizzaData.map((pizza) => (
-            <Pizza pizzaObj={pizza} />
-          ))}
-        </div>
 
-        {/* <Pizza
-        //   name="Pizza Spinaci"
-        //   ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        //   photoName="pizzas/spinaci.jpg"
-        //   price={599}
-        // />
+        {numPizzas > 0 ? (
+          <React.Fragment>
+            <p>
+              Authentic Italian cuisines. 6 creative dishes to choose from.All
+              from our stone oven,all organic,all delicious.
+            </p>
 
-        // <Pizza
-        //   name="Pizza Funghi"
-        //   ingredients="Tomato, mozarella, mushrooms, and onion"
-        //   photoName="pizzas/funghi.jpg"
-        //   price={450}
-        /> */}
+            <ul className="pizzas">
+              {pizzas.map((pizza) => (
+                <Pizza pizzaObj={pizza} key={pizza.name} />
+              ))}
+            </ul>
+          </React.Fragment>
+        ) : (
+          <p>We're still working on the menu . Please visit us in a while.</p>
+        )}
       </main>
     );
   }
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
+  console.log(pizzaObj);
   return (
-    <div className="pizza">
-      <img src={props.pizzaObj.photoName}></img>
+    <li className="pizza">
+      <img src={pizzaObj.photoName}></img>
       <div>
-        <h2>{props.pizzaObj.name}</h2>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h2>{pizzaObj.name}</h2>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -109,14 +111,23 @@ function Header() {
 function Footer() {
   const hour = new Date().getHours();
   const openHour = 12;
-  const closeHour = 22;
+  const closeHour = 21;
 
   // if (hour >= openHour && hour <= closeHour) alert("We are open right now!");
   // else alert("We are closed fuck off!");
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}. We are currently open!
+      {openHour && <Order closeHour={closeHour} />}
     </footer>
+  );
+}
+
+function Order({ closeHour }) {
+  return (
+    <div className="order">
+      <p>We are open until {closeHour}:00. Come visit us or order online.</p>
+      <button className="btn">Order</button>
+    </div>
   );
 }
 
